@@ -46,11 +46,11 @@ SQL Server or LocalDB
 Git installed
 
 ## Setup
--Clone the repository:
--Open the solution in Visual Studio.
--Restore NuGet packages.
--Update the database connection string in Web.config.
--Run the project with IIS Express.
+- Clone the repository:
+- Open the solution in Visual Studio.
+- Restore NuGet packages.
+- Update the database connection string in Web.config.
+- Run the project with IIS Express.
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request.
