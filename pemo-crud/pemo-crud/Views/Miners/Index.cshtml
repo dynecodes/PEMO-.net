@@ -1,0 +1,221 @@
+﻿
+@model IEnumerable<PEMO_DATA_BANKING.Models.Miner>
+
+@{
+    ViewBag.Title = "Miners Index";
+}
+
+<h2>Miners</h2>
+
+<p>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMinerModal">Create New</button>
+</p>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 550px;">
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th>Association</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.MiddleName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Longitude)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Association.Association_name)</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editMinerModal" data-id="@item.Miner_id" data-firstname="@item.FirstName" data-middlename="@item.MiddleName" data-lastname="@item.LastName" data-longitude="@item.Longitude" data-latitude="@item.Latitude" data-associationid="@item.Association_id">Edit</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMinerModal" data-id="@item.Miner_id">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createMinerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createMinerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="createMinerModalLabel">Create Miner</h3>
+            </div>
+            <form id="createForm" action="@Url.Action("Create", "Miners")" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mb-3">
+                        <label for="FirstName">First Name</label>
+                        <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter First Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="MiddleName">Middle Name</label>
+                        <input type="text" class="form-control" id="MiddleName" name="MiddleName" placeholder="Enter Middle Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="LastName">Last Name</label>
+                        <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="Longitude">Longitude</label>
+                        <input type="text" class="form-control" id="Longitude" name="Longitude" placeholder="Enter Longitude" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="Latitude">Latitude</label>
+                        <input type="text" class="form-control" id="Latitude" name="Latitude" placeholder="Enter Latitude" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="Association_id">Association</label>
+                        @Html.DropDownList("Association_id", (IEnumerable<SelectListItem>)ViewBag.Associations, new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editMinerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editMinerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="editMinerModalLabel">Edit Miner</h3>
+            </div>
+            <form id="editForm" action="@Url.Action("Edit", "Miners")" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="Miner_id" name="Miner_id" />
+                    <div class="form-group mb-3">
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" class="form-control" id="editFirstName" name="FirstName" placeholder="Enter First Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="editMiddleName">Middle Name</label>
+                        <input type="text" class="form-control" id="editMiddleName" name="MiddleName" placeholder="Enter Middle Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName" name="LastName" placeholder="Enter Last Name" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="editLongitude">Longitude</label>
+                        <input type="text" class="form-control" id="editLongitude" name="Longitude" placeholder="Enter Longitude" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="editLatitude">Latitude</label>
+                        <input type="text" class="form-control" id="editLatitude" name="Latitude" placeholder="Enter Latitude" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="Association_id">Association</label>
+                        @Html.DropDownList("Association_id", (IEnumerable<SelectListItem>)ViewBag.Associations, new { @class = "form-control", @required = "required" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteMinerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteMinerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="deleteMinerModalLabel">Delete Miner</h3>
+            </div>
+            <form id="deleteForm" action="@Url.Action("Delete", "Miners")" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="deleteMiner_id" name="id" />
+                    <p>Are you sure you want to delete this miner?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+    $('#editMinerModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var minerId = button.data('id');
+        var firstName = button.data('firstname');
+        var middleName = button.data('middlename');
+        var lastName = button.data('lastname');
+        var longitude = button.data('longitude');
+        var latitude = button.data('latitude');
+        var associationId = button.data('associationid');
+
+        var modal = $(this);
+        modal.find('#Miner_id').val(minerId);
+        modal.find('#editFirstName').val(firstName);
+        modal.find('#editMiddleName').val(middleName);
+        modal.find('#editLastName').val(lastName);
+        modal.find('#editLongitude').val(longitude);
+        modal.find('#editLatitude').val(latitude);
+        modal.find('#Association_id').val(associationId);
+    });
+
+    $('#deleteMinerModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var minerId = button.data('id');
+
+        var modal = $(this);
+        modal.find('#deleteMiner_id').val(minerId);
+    });
+
+    $('#deleteForm').submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '@Url.Action("DeleteConfirmed", "Miners")', // Correct action URL
+            type: 'POST',
+            data: form.serialize(),
+            success: function (response) {
+                if (response.success) {
+                    location.reload(); // Reload the page to reflect the changes
+                } else {
+                    alert(response.message || 'An error occurred. Please try again.');
+                }
+            },
+            error: function () {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    });
+});
+
+    </script>
+}
+
+
+

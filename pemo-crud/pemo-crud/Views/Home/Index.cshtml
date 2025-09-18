@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <style>
+        .intro-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .logo-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-small {
+            width: 80px; /* Adjust the size as needed */
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+            margin-top: 70px; /* Adjust the overlap as needed */
+
+            margin-right: 10px; /* Adjust the overlap as needed */
+        }
+
+        .logo-large {
+            width: 300px; /* Adjust the size as needed */
+            margin-top: 0px; /* Adjust the overlap as needed */
+        }
+
+        .department-name {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 15px; /* Adjust as needed to create space between the logos  and text */
+            color:darkslategray;
+        }
+    </style>
+    <div class="intro-container">
+        <img src="~/Content/dist/img/Ph_seal_south_cotabato.png" class="logo-small" />
+        <div class="logo-container">
+            <img src="~/Content/dist/img/PEMOicon.png" class="logo-large" />
+        </div>
+        <div class="department-name">Provincial Environmental Management Office</div>
+    </div>
+
+</main>

@@ -1,0 +1,5 @@
+﻿ALTER TABLE [dbo].[Operator]
+ALTER COLUMN [isCompany] NVARCHAR(10) NULL;
+
+ALTER TABLE dbo.Operator
+ALTER COLUMN LastName NVARCHAR(100) NULL;

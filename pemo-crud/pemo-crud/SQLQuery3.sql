@@ -1,0 +1,9 @@
+﻿ALTER TABLE [dbo].[Miner]
+ALTER COLUMN [Longitude] NVARCHAR(50) NULL;
+
+ALTER TABLE [dbo].[Miner]
+ALTER COLUMN [Latitude] NVARCHAR(50) NULL;
+
+
+ALTER TABLE [dbo].[Operator]
+ALTER COLUMN [isCompany] NVARCHAR(10) NULL;

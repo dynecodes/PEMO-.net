@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_abe4fc_sampledbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Association">
+          <Key>
+            <PropertyRef Name="Association_id" />
+          </Key>
+          <Property Name="Association_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Association_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Barangay">
+          <Key>
+            <PropertyRef Name="Barangay_id" />
+          </Key>
+          <Property Name="Barangay_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Barangay_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Municipality_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_id" />
+          </Key>
+          <Property Name="Category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Miner">
+          <Key>
+            <PropertyRef Name="Miner_id" />
+          </Key>
+          <Property Name="Miner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Association_id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Municipality">
+          <Key>
+            <PropertyRef Name="Municipality_id" />
+          </Key>
+          <Property Name="Municipality_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Municipality_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Province_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="Person_id" />
+          </Key>
+          <Property Name="Person_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Company_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isCompany" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Permit">
+          <Key>
+            <PropertyRef Name="Permit_id" />
+          </Key>
+          <Property Name="Permit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permit_type_id" Type="int" Nullable="false" />
+          <Property Name="Person_id" Type="int" Nullable="false" />
+          <Property Name="Category_id" Type="int" Nullable="false" />
+          <Property Name="Province_id" Type="int" Nullable="false" />
+          <Property Name="Municipality_id" Type="int" Nullable="false" />
+          <Property Name="Barangay_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permit_Type">
+          <Key>
+            <PropertyRef Name="Permit_type_id" />
+          </Key>
+          <Property Name="Permit_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Province_id" />
+          </Key>
+          <Property Name="Province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Province_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Barangay_Municipality">
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="1" />
+          <End Role="Barangay" Type="Self.Barangay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipality">
+              <PropertyRef Name="Municipality_id" />
+            </Principal>
+            <Dependent Role="Barangay">
+              <PropertyRef Name="Municipality_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Miner_Association">
+          <End Role="Association" Type="Self.Association" Multiplicity="1" />
+          <End Role="Miner" Type="Self.Miner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Association">
+              <PropertyRef Name="Association_id" />
+            </Principal>
+            <Dependent Role="Miner">
+              <PropertyRef Name="Association_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Municipality_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Province_id" />
+            </Principal>
+            <Dependent Role="Municipality">
+              <PropertyRef Name="Province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Barangay">
+          <End Role="Barangay" Type="Self.Barangay" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay">
+              <PropertyRef Name="Barangay_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Barangay_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Municipality">
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipality">
+              <PropertyRef Name="Municipality_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Municipality_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Operator">
+          <End Role="Operator" Type="Self.Operator" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operator">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_PermitType">
+          <End Role="Permit_Type" Type="Self.Permit_Type" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permit_Type">
+              <PropertyRef Name="Permit_type_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Permit_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Province_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_abe4fc_sampledbModelStoreContainer">
+          <EntitySet Name="Association" EntityType="Self.Association" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Barangay" EntityType="Self.Barangay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Miner" EntityType="Self.Miner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Municipality" EntityType="Self.Municipality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operator" EntityType="Self.Operator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permit" EntityType="Self.Permit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permit_Type" EntityType="Self.Permit_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Barangay_Municipality" Association="Self.FK_Barangay_Municipality">
+            <End Role="Municipality" EntitySet="Municipality" />
+            <End Role="Barangay" EntitySet="Barangay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Miner_Association" Association="Self.FK_Miner_Association">
+            <End Role="Association" EntitySet="Association" />
+            <End Role="Miner" EntitySet="Miner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Municipality_Province" Association="Self.FK_Municipality_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Municipality" EntitySet="Municipality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Barangay" Association="Self.FK_Permit_Barangay">
+            <End Role="Barangay" EntitySet="Barangay" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Category" Association="Self.FK_Permit_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Municipality" Association="Self.FK_Permit_Municipality">
+            <End Role="Municipality" EntitySet="Municipality" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Operator" Association="Self.FK_Permit_Operator">
+            <End Role="Operator" EntitySet="Operator" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_PermitType" Association="Self.FK_Permit_PermitType">
+            <End Role="Permit_Type" EntitySet="Permit_Type" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Province" Association="Self.FK_Permit_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Permit" EntitySet="Permit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_abe4fc_sampledbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Association">
+          <Key>
+            <PropertyRef Name="Association_id" />
+          </Key>
+          <Property Name="Association_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Association_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Miners" Relationship="Self.FK_Miner_Association" FromRole="Association" ToRole="Miner" />
+        </EntityType>
+        <EntityType Name="Barangay">
+          <Key>
+            <PropertyRef Name="Barangay_id" />
+          </Key>
+          <Property Name="Barangay_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Barangay_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Municipality_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Municipality" Relationship="Self.FK_Barangay_Municipality" FromRole="Barangay" ToRole="Municipality" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_Barangay" FromRole="Barangay" ToRole="Permit" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Category_id" />
+          </Key>
+          <Property Name="Category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_Category" FromRole="Category" ToRole="Permit" />
+        </EntityType>
+        <EntityType Name="Miner">
+          <Key>
+            <PropertyRef Name="Miner_id" />
+          </Key>
+          <Property Name="Miner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Association_id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Longitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Association" Relationship="Self.FK_Miner_Association" FromRole="Miner" ToRole="Association" />
+        </EntityType>
+        <EntityType Name="Municipality">
+          <Key>
+            <PropertyRef Name="Municipality_id" />
+          </Key>
+          <Property Name="Municipality_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Municipality_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Province_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barangays" Relationship="Self.FK_Barangay_Municipality" FromRole="Municipality" ToRole="Barangay" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_Municipality_Province" FromRole="Municipality" ToRole="Province" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_Municipality" FromRole="Municipality" ToRole="Permit" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="Person_id" />
+          </Key>
+          <Property Name="Person_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isCompany" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_Operator" FromRole="Operator" ToRole="Permit" />
+        </EntityType>
+        <EntityType Name="Permit">
+          <Key>
+            <PropertyRef Name="Permit_id" />
+          </Key>
+          <Property Name="Permit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permit_type_id" Type="Int32" Nullable="false" />
+          <Property Name="Person_id" Type="Int32" Nullable="false" />
+          <Property Name="Category_id" Type="Int32" Nullable="false" />
+          <Property Name="Province_id" Type="Int32" Nullable="false" />
+          <Property Name="Municipality_id" Type="Int32" Nullable="false" />
+          <Property Name="Barangay_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barangay" Relationship="Self.FK_Permit_Barangay" FromRole="Permit" ToRole="Barangay" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Permit_Category" FromRole="Permit" ToRole="Category" />
+          <NavigationProperty Name="Municipality" Relationship="Self.FK_Permit_Municipality" FromRole="Permit" ToRole="Municipality" />
+          <NavigationProperty Name="Operator" Relationship="Self.FK_Permit_Operator" FromRole="Permit" ToRole="Operator" />
+          <NavigationProperty Name="Permit_Type" Relationship="Self.FK_Permit_PermitType" FromRole="Permit" ToRole="Permit_Type" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_Permit_Province" FromRole="Permit" ToRole="Province" />
+        </EntityType>
+        <EntityType Name="Permit_Type">
+          <Key>
+            <PropertyRef Name="Permit_type_id" />
+          </Key>
+          <Property Name="Permit_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_PermitType" FromRole="Permit_Type" ToRole="Permit" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Province_id" />
+          </Key>
+          <Property Name="Province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Province_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Municipalities" Relationship="Self.FK_Municipality_Province" FromRole="Province" ToRole="Municipality" />
+          <NavigationProperty Name="Permits" Relationship="Self.FK_Permit_Province" FromRole="Province" ToRole="Permit" />
+        </EntityType>
+        <Association Name="FK_Miner_Association">
+          <End Role="Association" Type="Self.Association" Multiplicity="1" />
+          <End Role="Miner" Type="Self.Miner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Association">
+              <PropertyRef Name="Association_id" />
+            </Principal>
+            <Dependent Role="Miner">
+              <PropertyRef Name="Association_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Barangay_Municipality">
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="1" />
+          <End Role="Barangay" Type="Self.Barangay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipality">
+              <PropertyRef Name="Municipality_id" />
+            </Principal>
+            <Dependent Role="Barangay">
+              <PropertyRef Name="Municipality_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Barangay">
+          <End Role="Barangay" Type="Self.Barangay" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay">
+              <PropertyRef Name="Barangay_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Barangay_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Municipality_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Province_id" />
+            </Principal>
+            <Dependent Role="Municipality">
+              <PropertyRef Name="Province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Municipality">
+          <End Role="Municipality" Type="Self.Municipality" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipality">
+              <PropertyRef Name="Municipality_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Municipality_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Operator">
+          <End Role="Operator" Type="Self.Operator" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operator">
+              <PropertyRef Name="Person_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_PermitType">
+          <End Role="Permit_Type" Type="Self.Permit_Type" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permit_Type">
+              <PropertyRef Name="Permit_type_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Permit_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permit_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="1" />
+          <End Role="Permit" Type="Self.Permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Province_id" />
+            </Principal>
+            <Dependent Role="Permit">
+              <PropertyRef Name="Province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_abe4fc_sampledbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Associations" EntityType="Self.Association" />
+          <EntitySet Name="Barangays" EntityType="Self.Barangay" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Miners" EntityType="Self.Miner" />
+          <EntitySet Name="Municipalities" EntityType="Self.Municipality" />
+          <EntitySet Name="Operators" EntityType="Self.Operator" />
+          <EntitySet Name="Permits" EntityType="Self.Permit" />
+          <EntitySet Name="Permit_Type" EntityType="Self.Permit_Type" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <AssociationSet Name="FK_Miner_Association" Association="Self.FK_Miner_Association">
+            <End Role="Association" EntitySet="Associations" />
+            <End Role="Miner" EntitySet="Miners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Barangay_Municipality" Association="Self.FK_Barangay_Municipality">
+            <End Role="Municipality" EntitySet="Municipalities" />
+            <End Role="Barangay" EntitySet="Barangays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Barangay" Association="Self.FK_Permit_Barangay">
+            <End Role="Barangay" EntitySet="Barangays" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Category" Association="Self.FK_Permit_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Municipality_Province" Association="Self.FK_Municipality_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Municipality" EntitySet="Municipalities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Municipality" Association="Self.FK_Permit_Municipality">
+            <End Role="Municipality" EntitySet="Municipalities" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Operator" Association="Self.FK_Permit_Operator">
+            <End Role="Operator" EntitySet="Operators" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_PermitType" Association="Self.FK_Permit_PermitType">
+            <End Role="Permit_Type" EntitySet="Permit_Type" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permit_Province" Association="Self.FK_Permit_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Permit" EntitySet="Permits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_abe4fc_sampledbModelStoreContainer" CdmEntityContainer="db_abe4fc_sampledbEntities">
+          <EntitySetMapping Name="Associations">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Association">
+              <MappingFragment StoreEntitySet="Association">
+                <ScalarProperty Name="Association_id" ColumnName="Association_id" />
+                <ScalarProperty Name="Association_name" ColumnName="Association_name" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Barangays">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Barangay">
+              <MappingFragment StoreEntitySet="Barangay">
+                <ScalarProperty Name="Barangay_id" ColumnName="Barangay_id" />
+                <ScalarProperty Name="Barangay_name" ColumnName="Barangay_name" />
+                <ScalarProperty Name="Municipality_id" ColumnName="Municipality_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+                <ScalarProperty Name="Category_name" ColumnName="Category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Miners">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Miner">
+              <MappingFragment StoreEntitySet="Miner">
+                <ScalarProperty Name="Miner_id" ColumnName="Miner_id" />
+                <ScalarProperty Name="Association_id" ColumnName="Association_id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Municipalities">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Municipality">
+              <MappingFragment StoreEntitySet="Municipality">
+                <ScalarProperty Name="Municipality_id" ColumnName="Municipality_id" />
+                <ScalarProperty Name="Municipality_name" ColumnName="Municipality_name" />
+                <ScalarProperty Name="Province_id" ColumnName="Province_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Operator">
+              <MappingFragment StoreEntitySet="Operator">
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="isCompany" ColumnName="isCompany" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permits">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Permit">
+              <MappingFragment StoreEntitySet="Permit">
+                <ScalarProperty Name="Permit_id" ColumnName="Permit_id" />
+                <ScalarProperty Name="Permit_type_id" ColumnName="Permit_type_id" />
+                <ScalarProperty Name="Person_id" ColumnName="Person_id" />
+                <ScalarProperty Name="Category_id" ColumnName="Category_id" />
+                <ScalarProperty Name="Province_id" ColumnName="Province_id" />
+                <ScalarProperty Name="Municipality_id" ColumnName="Municipality_id" />
+                <ScalarProperty Name="Barangay_id" ColumnName="Barangay_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permit_Type">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Permit_Type">
+              <MappingFragment StoreEntitySet="Permit_Type">
+                <ScalarProperty Name="Permit_type_id" ColumnName="Permit_type_id" />
+                <ScalarProperty Name="Type_name" ColumnName="Type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="db_abe4fc_sampledbModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="Province_id" ColumnName="Province_id" />
+                <ScalarProperty Name="Province_name" ColumnName="Province_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
