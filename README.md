@@ -58,7 +58,7 @@ SQL Server or LocalDB
 Git installed
 
 ## Setup
-- Clone the repository:
+- Clone the repository.
 - Open the solution in Visual Studio.
 - Restore NuGet packages.
 - Update the database connection string in Web.config.
