@@ -38,9 +38,20 @@ PEMO_DATA BANKING/
 │-- Global.asax      # Application start configuration
 │-- Web.config       # Project configuration file
 
+## 📸 Screenshots
 
 ### Dashboard
-![Dashboard Screenshot](dashboard1.png)
+![Dashboard](https://github.com/user-attachments/assets/ad5f965e-d174-4976-91c4-d0fc0a28a82d)
+
+### Profiles
+![Profiles](https://github.com/user-attachments/assets/087235d6-c978-473e-b96d-2dab00454410)
+
+### Operators
+![Operators](https://github.com/user-attachments/assets/a54aa468-65c1-4de6-8573-5b8aa5ee6d08)
+
+### Association
+![Association](https://github.com/user-attachments/assets/b356a472-45a7-4df6-9ca6-65489683c8e8)
+
 
 ## Getting Started
 Prerequisites
