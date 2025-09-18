@@ -46,10 +46,9 @@ PEMO_DATA BANKING/
 ![Profiles](https://github.com/user-attachments/assets/087235d6-c978-473e-b96d-2dab00454410)
 
 ### Operators
-![Operators](https://github.com/user-attachments/assets/a54aa468-65c1-4de6-8573-5b8aa5ee6d08)
-
+![Operators](https://github.com/user-attachments/assets/ad5f965e-d174-4976-91c4-d0fc0a28a82d)
 ### Association
-![Association](https://github.com/user-attachments/assets/ad5f965e-d174-4976-91c4-d0fc0a28a82d)
+![Association](https://github.com/user-attachments/assets/a54aa468-65c1-4de6-8573-5b8aa5ee6d08)
 
 
 ## Getting Started
