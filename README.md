@@ -45,14 +45,14 @@ Visual Studio (2019/2022 recommended)
 SQL Server or LocalDB
 Git installed
 
-##Setup
-1.Clone the repository:
-2.Open the solution in Visual Studio.
-3.Restore NuGet packages.
-4.Update the database connection string in Web.config.
-5.Run the project with IIS Express.
+## Setup
+-Clone the repository:
+-Open the solution in Visual Studio.
+-Restore NuGet packages.
+-Update the database connection string in Web.config.
+-Run the project with IIS Express.
 
-##Contributing
+## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request.
 
 
