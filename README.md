@@ -39,6 +39,9 @@ PEMO_DATA BANKING/
 │-- Web.config       # Project configuration file
 
 
+### Dashboard
+![Dashboard Screenshot](dashboard1.png)
+
 ## Getting Started
 Prerequisites
 Visual Studio (2019/2022 recommended)
