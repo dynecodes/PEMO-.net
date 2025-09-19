@@ -50,6 +50,11 @@ PEMO_DATA BANKING/
 ### Association
 ![Association](https://github.com/user-attachments/assets/a54aa468-65c1-4de6-8573-5b8aa5ee6d08)
 
+##  🔗 Live Demo(SmarterASP.NET) 
+Site:  [http://dynes02-001-site1.qtempurl.com/]
+User Name: 11265276
+Password: 60-dayfreetrial  
+(The trial will end on November 17, 2025)
 
 ## Getting Started
 Prerequisites
