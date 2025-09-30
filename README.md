@@ -52,6 +52,8 @@ PEMO_DATA BANKING/
 
 ##  🔗 Live Demo(SmarterASP.NET) 
 Site:  [http://dynes02-001-site1.qtempurl.com/]
+
+Use this Login account:
 User Name: 11265276
 Password: 60-dayfreetrial  
 (The trial will end on November 17, 2025)
