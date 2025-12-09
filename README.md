@@ -15,7 +15,7 @@ This project demonstrates a structured approach to handling user information, au
 ---
 
 ## 🛠 Tech Stack
-- **Framework**: ASP.NET MVC (.NET Framework 4.x)  
+- **Framework**: ASP.NET MVC 
 - **Language**: C#  
 - **Frontend**: Razor Views, HTML5, CSS3, JavaScript  
 - **Database**: SQL Server  
